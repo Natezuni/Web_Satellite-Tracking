@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/subscribe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/6.6.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+    <div id="bgimg">
+        <nav>
+            <div class="logo">Nathan's Tracker</div>
+            <input type="checkbox" id="click">
+            <label for="click" class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </label>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/views/satellites.html">Satellites</a></li>
+                <li><a href="/views/visualPasses.html">Visual Passes</a></li>
+                <li><a class="active" href="/views/subscribe.html">Subscribe</a></li>
+                <li><a href="/views/satelliteTrackingList.html">Track List</a></li>
+            </ul>
+        </nav>
+        <div class="login-box">
+            <h2>Subscribe</h2>
+            <form>
+
+                <div class="user-box">
+                    <input type="text" id="name" name="" required="" placeholder="Name">
+                </div>
+                <div class="user-box">
+                    <input type="text" id="email" name="" required="" placeholder="Email">
+                </div>
+                <div class="dropdown">
+                    <label id="labelOccurence">How often do you wish to receive updates?</label>
+                    <br>
+                    <select name="occurence" id="updates">
+                        <option id="options" value="1">Daily</option>
+                        <option id="options" value="2">Weekly</option>
+                        <option id="options" value="3">Monthly</option>
+                    </select>
+                </div>
+                <center>
+                    <a onclick="run()">
+                        Submit
+                    </a>
+                </center>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function run() {
+            let email = document.getElementById('email').value;
+            let name = document.getElementById('name').value;
+            let occurence = document.getElementById('updates').value;
+
+            var data = {
+                name: name,
+                email: email,
+                occurence: occurence
+            }
+
+            var database = firebase.database();
+            var ref = database.ref("Subscriptions");
+            ref.push(data);
+            alert("You have subscribed successfully!")
+        }
+
+    </script>
+
+
+</body>
+
+</html>
